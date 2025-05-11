@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std ;
+
 class Hamming
 {
     private:
@@ -8,51 +10,56 @@ class Hamming
     public:
         int decodificador();
         int codificador();
-        int menu();
+        void menu();
 };
 
 int Hamming::decodificador()
 {
-    int value[4];
-    int i;
+    int quantidade;
+    cout << "Digite a quantidade de bits que deseja: ";
+    cin >> quantidade;
 
-    for(int i = 0; i < 4; i++)
+    int *bit = new int[quantidade];
+
+    cout << "Digite os bits (0 ou 1):\n";
+    for (int i = 0; i < quantidade; i++) 
     {
-        std::cout << "Digite os bits de paridade: " << std::endl;
-        std::cin >> value[i];
+        cout << "Bit " << i << ": ";
+        cin >> bit[i];
+
+        while (bit[i] != 0 && bit[i] != 1) 
+        {
+            cout << "Bit inválido! Digite 0 ou 1: ";
+            cin >> bit[i];
+        }
     }
 
-    //implementar o codigo que faz a decodificação
-
-    for(int i = 0; i < 4; i++)
+    int paridade = 0;
+    for(int i = 0; i < quantidade; i++)
     {
-        std::cout << "O valor do bit " << i << " é " << value[i] << std::endl;
+        if(bit[i]== 1)
+        {
+            paridade ^= (i + 1);
+        }
     }
 
-    return 0;
+    if(paridade == 0)
+    {
+        cout << "Nem um erro foi encontrado!!" << "\n\n" << endl;
+    }
+    else
+    {
+        cout << "Erro encontado no bit de posição: " << paridade << endl;
+    }
+    
+    delete[] bit;
+    return paridade;
 }
 
 int Hamming::codificador()
 {
-    int value[4];
-    int i;
-
-    for(int i = 0; i < 4; i++)
-    {
-        std::cout << "Digite os bits de paridade: " << std::endl;
-        std::cin >> value[i];
-    }
-
-    //implementar o codigo que faz a codificação
-
-    for(int i = 0; i < 4; i++)
-    {
-        std::cout << "O valor do bit " << i << " é " << value[i] << std::endl;
-    }
-
     return 0;
 }
-
 
 int main()
 {
@@ -63,40 +70,37 @@ int main()
     delete root;
 
     return 0;
+
 }
 
-int Hamming::menu()
+void Hamming::menu()
 {
     int opc;
 
-    std::cout << "\tMenu\n" << std::endl;
-    std::cout <<"\t1-Decodificador\n\n\t2-Codificador\n\n\t0-Para sair\n\n" << std::endl;
-    std::cout << "\tEscolha uma opção:\t " << std::endl;
-    std::cin >> opc;
-
     do 
+    {
+        std::cout << "\tMenu\n";
+        std::cout << "\t1 - Decodificador\n";
+        std::cout << "\t2 - Codificador\n";
+        std::cout << "\t0 - Sair\n";
+        std::cout << "\tEscolha uma opção: ";
+        std::cin >> opc;
+
         switch(opc)
         {
             case 1:
-            decodificador();
-            
-            break;
-        
+                decodificador();
+                break;
             case 2:
-            codificador();
-            break;
-
+                codificador();
+                break;
             case 0:
-            std::cout << "Saindo..\n";
-            break;
-
+                std::cout << "Saindo...\n";
+                break;
             default:
-            std::cout << "Digite uma opção valida: ";
-            break;
+                std::cout << "Opção inválida.\n";
+                break;
         }
-    
-    while(opc != 0);
 
-    return 0;
-
+    } while(opc != 0);
 }

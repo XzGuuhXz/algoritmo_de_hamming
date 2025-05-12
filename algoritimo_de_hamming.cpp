@@ -52,10 +52,10 @@ int Hamming::decodificador()
     cw[5] = bit[2];
     cw[6] = bit[3];
 
-    // // calcular paridades p1,p2,p4
-    // cw[0] = cw[2] ^ cw[4] ^ cw[6];  // pos 1
-    // cw[1] = cw[2] ^ cw[5] ^ cw[6];  // pos 2
-     cw[3] = cw[4] ^ cw[5] ^ cw[6];  // pos 4
+    // calcular paridades p1,p2,p4
+    cw[0] = cw[2] ^ cw[4] ^ cw[6];  // pos 1
+    cw[1] = cw[2] ^ cw[5] ^ cw[6];  // pos 2
+    cw[3] = cw[4] ^ cw[5] ^ cw[6];  // pos 4
 
     cout << "\nPos decodificação (7 bits): ";
     for (i = 0; i < 7; i++)
